@@ -56,6 +56,11 @@ void Player::updatePlayerDir()
                 if(myDir != LEFT || myDir == STOP)
                     myDir = RIGHT;
                 break;
+
+            case 27:
+                mainGameMechsRef->setExitTrue();
+                break;
+
             default:
                 break;
         }

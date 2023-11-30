@@ -3,6 +3,7 @@
 #include "objPos.h"
 #include "GameMechs.h"
 #include "Player.h"
+#include "Food.h"
 
 
 
@@ -12,7 +13,7 @@ using namespace std;
 
 GameMechs* myGM;
 Player* myPlayer;
-
+Food* myFood;
 
 void Initialize(void);
 void GetInput(void);
@@ -48,22 +49,30 @@ void Initialize(void)
 
     myGM = new GameMechs(30, 15); //   30X15
     myPlayer = new Player(myGM);
+    myFood = new Food();
+
+    //generateFood() requires a player reference. you will need to provide it after player object is instantiated.
+    objPos foodPos;
+    objPos playerPos;
+
+
+    myPlayer->getPlayerPos(playerPos);
+    myFood->generateFood(playerPos);
+
+
 
 
 }
 
 void GetInput(void)
 {
-
+    myGM->getInput();
 }
 
 void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
-
-    if(myGM->getInput() == 27)
-        myGM->setExitTrue();
 
     myGM->clearInput();
 }
@@ -86,15 +95,25 @@ void DrawScreen(void)
             {   
                 objPos playerPos;
                 myPlayer->getPlayerPos(playerPos);
-
                 if (i == playerPos.y && j == playerPos.x) 
                 {
                     printf("%c", playerPos.symbol);
                 } 
-                else 
+                else
                 {
-                    printf(" ");
+                    
+                    objPos foodPos;
+                    myFood->getFoodPos(foodPos);
+
+                    if (i == foodPos.y && j == foodPos.x) 
+                    {
+                        printf("%c", foodPos.symbol);
+                    } 
+                    else
+                        printf(" ");
+
                 }
+
             }
         }
         printf("\n");    
@@ -115,4 +134,6 @@ void CleanUp(void)
     MacUILib_uninit();
 
     delete myGM;
+    delete myPlayer;
+    delete myFood;  
 }
