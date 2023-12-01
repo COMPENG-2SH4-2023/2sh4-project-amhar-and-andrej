@@ -17,7 +17,7 @@ Player::~Player()
     // NO heap member right now 
 }
 
-void Player::getPlayerPos(objPos &returnPos)
+objPosArrayList* Player::getPlayerPos(objPos &returnPos)
 {
     // return the reference to the playerPos arrray list
     returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
