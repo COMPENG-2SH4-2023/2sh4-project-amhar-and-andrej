@@ -5,15 +5,16 @@
 
 objPosArrayList::objPosArrayList()
 {
-    aList = new objPos[ARRAY_MAX_CAP]; //200 elements on the heap
-    sizeList = 0;                      //no valid element in the list upon startup
-    sizeArray = ARRAY_MAX_CAP;     // array capacity should be set to the max
+    sizeArray = ARRAY_MAX_CAP;
+    sizeList = 0;
+    aList = new objPos[ARRAY_MAX_CAP];
 }
 
 objPosArrayList::~objPosArrayList()
 {
-    delete[] aList; // delete[] calls destructors of all instances in the array
-}                   //Otherwise only the first element is properly deleted
+    delete[] aList;
+
+}
 
 int objPosArrayList::getSize()
 {
@@ -22,84 +23,86 @@ int objPosArrayList::getSize()
 
 void objPosArrayList::insertHead(objPos thisPos)
 {
-    // check if listSize=arrayCapacity, if yes don't insert
-    if (sizeList == sizeArray) 
+    if(sizeArray == sizeList) //check if the array has been full
     {
         return;
     }
 
-    for (int i = sizeList - 1; i >= 0; i--) 
+    for(int i=sizeList ; i>0 ;i--)
     {
-        aList[i].setObjPos(aList[i - 1]); // Shifts all the elements towards the tail(each element will be the one before)
+        aList[i].setObjPos(aList[i-1]);
+
     }
 
-    aList[0].setObjPos(thisPos); // inserting the head based on what the next current position is
-
-    sizeList++; // incrementing the list by 1 since the head is added
+    aList[0].setObjPos(thisPos);
+    sizeList++;
 }
 
 void objPosArrayList::insertTail(objPos thisPos)
 {
-    // Check if listSize equals arrayCapacity; if yes, don't insert
-    if (sizeList == sizeArray)
+    if(sizeArray == sizeList) //check if the array has been full
     {
         return;
     }
 
-    // Insert the new tail position at the end, no need to shuffle elements
     aList[sizeList].setObjPos(thisPos);
 
-    // Increment the list size since the tail is added
     sizeList++;
 }
 
 void objPosArrayList::removeHead()
 {
-    // If list is empty, don't remove anything
-    if (sizeList == 0)
+    if(sizeList == 0) // check if the list is empty
     {
         return;
-    }
+    }   
 
-    // Shift elements towards the head to remove the head
-    for (int i = 0; i < sizeList - 1; i++) 
+    for(int i =0;i<sizeList-1;i++) //shift all the elements to the left
     {
-        aList[i].setObjPos(aList[i + 1]);
+        aList[i].setObjPos(aList[i+1]);
     }
-
-    // Decrement the list size since the head is removed
     sizeList--;
+
 }
 
 void objPosArrayList::removeTail()
 {
-    // Check if the list is empty, if yes don't remove
-    if (sizeList == 0) 
+    if(sizeList ==0) // check if the list is empty
     {
         return;
     }
-    
-    sizeList--; // Decrement the list size by one which removes the tail 
+
+    sizeList--;
 }
 
-char objPosArrayList::getHeadElement(objPos &returnPos)
+void objPosArrayList::getHeadElement(objPos &returnPos)
 {
-    return aList[0].getSymbol(); //returning the symbol of head (head index on the list is 0 always)
-}
-
-char objPosArrayList::getTailElement(objPos &returnPos)
-{
-    return aList[sizeList - 1].getSymbol(); //returnin the tail element
-}
-
-char objPosArrayList::getElement(objPos &returnPos, int index)
-{
-    if (index >= 0 && index < sizeList) 
+    if(sizeList ==0) // check if the list is empty
     {
-        return aList[index].getSymbol(); // Return the symbol at the given index if it's in bound 
+        return;
     }
-    else 
+
+    returnPos.setObjPos(aList[0]);
+
+}
+
+void objPosArrayList::getTailElement(objPos &returnPos)
+{
+    if(sizeList ==0) // check if the list is empty
     {
-        return 0;
+        return;
     }
+
+    returnPos.setObjPos(aList[sizeList-1]);
+}
+
+void objPosArrayList::getElement(objPos &returnPos, int index)
+{
+    if(sizeList ==0) // check if the list is empty
+    {
+        return;
+    }
+
+    returnPos.setObjPos(aList[index]);
+
 }

@@ -22,9 +22,9 @@ class objPosArrayList
         void removeHead();
         void removeTail();
         
-        char getHeadElement(objPos &returnPos);
-        char getTailElement(objPos &returnPos);
-        char getElement(objPos &returnPos, int index);
+        void getHeadElement(objPos &returnPos);
+        void getTailElement(objPos &returnPos);
+        void getElement(objPos &returnPos, int index);
 };
 
 #endif
