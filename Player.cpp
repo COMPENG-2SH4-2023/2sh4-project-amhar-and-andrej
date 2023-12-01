@@ -7,7 +7,6 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     // more actions to be included
-
     playerPos.setObjPos(mainGameMechsRef->getBoardSizeX() / 2, mainGameMechsRef->getBoardSizeY() / 2, '@');
 }
 
@@ -29,7 +28,7 @@ void Player::updatePlayerDir()
 {
     // PPA3 input processing logic  
 
-    char input = mainGameMechsRef->getInput();
+    char input = mainGameMechsRef->getInput(); //getting the current input
 
     switch(input)
         {           
@@ -57,7 +56,7 @@ void Player::updatePlayerDir()
                     myDir = RIGHT;
                 break;
 
-            case 27:
+            case 27: //Press escape to stop the game
                 mainGameMechsRef->setExitTrue();
                 break;
 
@@ -70,6 +69,7 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer()
 {
+
     // PPA3 Finite State Machine logic
     switch (myDir) 
     {
