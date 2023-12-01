@@ -1,7 +1,5 @@
 #include "objPosArrayList.h"
 
-// Check lecture contents on general purpose array list construction, 
-// and modify it to support objPos array list construction.
 
 objPosArrayList::objPosArrayList()
 {
@@ -12,7 +10,7 @@ objPosArrayList::objPosArrayList()
 
 objPosArrayList::~objPosArrayList()
 {
-    delete[] aList;
+    delete[] aList;   
 
 }
 
@@ -23,41 +21,41 @@ int objPosArrayList::getSize()
 
 void objPosArrayList::insertHead(objPos thisPos)
 {
-    if(sizeArray == sizeList) //check if the array has been full
+    if(sizeArray == sizeList) //check if the array is full 
     {
         return;
     }
 
     for(int i=sizeList ; i>0 ;i--)
     {
-        aList[i].setObjPos(aList[i-1]);
+        aList[i].setObjPos(aList[i-1]);  //shuffling everything towards the tail 
 
     }
 
-    aList[0].setObjPos(thisPos);
+    aList[0].setObjPos(thisPos);  //inserting head
     sizeList++;
 }
 
 void objPosArrayList::insertTail(objPos thisPos)
 {
-    if(sizeArray == sizeList) //check if the array has been full
+    if(sizeArray == sizeList) //check if the array is full 
     {
         return;
     }
 
-    aList[sizeList].setObjPos(thisPos);
+    aList[sizeList].setObjPos(thisPos); //inserting tail at the end
 
     sizeList++;
 }
 
 void objPosArrayList::removeHead()
 {
-    if(sizeList == 0) // check if the list is empty
+    if(sizeList == 0) // if the list is empty don't remove anything
     {
         return;
     }   
 
-    for(int i =0;i<sizeList-1;i++) //shift all the elements to the left
+    for(int i =0;i<sizeList-1;i++) //shuffling all the elements towards the head
     {
         aList[i].setObjPos(aList[i+1]);
     }
@@ -67,42 +65,42 @@ void objPosArrayList::removeHead()
 
 void objPosArrayList::removeTail()
 {
-    if(sizeList ==0) // check if the list is empty
+    if(sizeList ==0) // if the list is empty don't do anything again 
     {
         return;
     }
 
-    sizeList--;
+    sizeList--;  //decrementing the list removes the tail 
 }
 
 void objPosArrayList::getHeadElement(objPos &returnPos)
 {
-    if(sizeList ==0) // check if the list is empty
+    if(sizeList ==0)
     {
         return;
     }
 
-    returnPos.setObjPos(aList[0]);
+    returnPos.setObjPos(aList[0]); //getting the head element at index 0
 
 }
 
 void objPosArrayList::getTailElement(objPos &returnPos)
 {
-    if(sizeList ==0) // check if the list is empty
+    if(sizeList ==0) 
     {
         return;
     }
 
-    returnPos.setObjPos(aList[sizeList-1]);
+    returnPos.setObjPos(aList[sizeList-1]); //getting the tail element from the last index
 }
 
 void objPosArrayList::getElement(objPos &returnPos, int index)
 {
-    if(sizeList ==0) // check if the list is empty
+    if(sizeList ==0)
     {
         return;
     }
 
-    returnPos.setObjPos(aList[index]);
+    returnPos.setObjPos(aList[index]); //getting the element from the inputed index
 
 }
