@@ -6,7 +6,9 @@
 Food::Food()
 {
     foodPos.setObjPos(-1, -1, '$'); //initializing the food position outside of the game board (so to not be displayed)
+    srand(time(NULL));
 }
+
 
 Food::~Food()
 {

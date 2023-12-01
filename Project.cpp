@@ -67,6 +67,13 @@ void Initialize(void)
 void GetInput(void)
 {
     myGM->getInput();
+    
+    int input = myGM->getInput();
+    objPos playerPos;
+
+    if (input == 32)
+        myFood->generateFood(playerPos);
+    
 }
 
 void RunLogic(void)
@@ -88,7 +95,7 @@ void DrawScreen(void)
             
             if(i == 0 || i == 14 || j == 0 || j == 29)
             {   
-                printf("#");
+                MacUILib_printf("#");
                 
             }
             else 
@@ -97,7 +104,7 @@ void DrawScreen(void)
                 myPlayer->getPlayerPos(playerPos);
                 if (i == playerPos.y && j == playerPos.x) 
                 {
-                    printf("%c", playerPos.symbol);
+                    MacUILib_printf("%c", playerPos.symbol);
                 } 
                 else
                 {
@@ -107,16 +114,16 @@ void DrawScreen(void)
 
                     if (i == foodPos.y && j == foodPos.x) 
                     {
-                        printf("%c", foodPos.symbol);
+                        MacUILib_printf("%c", foodPos.symbol);
                     } 
                     else
-                        printf(" ");
+                        MacUILib_printf(" ");    
 
                 }
 
             }
         }
-        printf("\n");    
+        MacUILib_printf("\n");    
     }
 }
     
