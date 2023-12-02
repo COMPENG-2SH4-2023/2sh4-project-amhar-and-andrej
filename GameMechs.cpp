@@ -6,9 +6,9 @@ GameMechs::GameMechs()
     input = 0;
     exitFlag = false;
     score = 0;
-    loseflag = false;
+    loseFlag = false;
     boardSizeX = 30;
-    boardSizeY = 10;
+    boardSizeY = 15;
 }
 
 
@@ -17,7 +17,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     input = 0;
     exitFlag = false;
     score = 0;
-    loseflag = false;
+    loseFlag = false;
     boardSizeX = boardX;
     boardSizeY = boardY;
 
@@ -25,35 +25,46 @@ GameMechs::GameMechs(int boardX, int boardY)
 
 // do you need a destructor?
 
+GameMechs::~GameMechs()
+{
+    
+}
+
+
 
 
 bool GameMechs::getExitFlagStatus()
 {
-
+    return exitFlag;
 }
 
 
 void GameMechs::setExitTrue()
 {
-
+    exitFlag = true;
 }
 
 
-bool getLoseFlagStatus::getLoseFlagStatus()
+bool GameMechs::getLoseFlagStatus()
 {
-
+    return loseFlag;
 }
 
 
-void setLoseFlag::setLoseFlag()
+void GameMechs::setLoseFlag()
 {
-
+    loseFlag = true;
+    exitFlag = true;
 }
 
 
 char GameMechs::getInput()
 {
-
+    if(MacUILib_hasChar()) //get input when there is a char pressed
+    {
+        input = MacUILib_getChar();
+    }
+    return input;
 }
 
 
@@ -65,7 +76,7 @@ void GameMechs::setInput(char this_input)
 
 void GameMechs::clearInput()
 {
-
+    input = 0;
 }
 
 
@@ -82,13 +93,13 @@ int GameMechs::getBoardSizeY()
 }
 
 
-int getScore::getScore()
+int GameMechs::getScore()
 {
     return score;
 }
 
 
-void incrementScore::incrementScore()
+void GameMechs::incrementScore()
 {
     score++;
 }
