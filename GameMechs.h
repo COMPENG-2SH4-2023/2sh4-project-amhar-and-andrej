@@ -31,9 +31,6 @@ class GameMechs
         GameMechs(int boardX, int boardY);
         ~GameMechs();
         
-        // Destructor
-        // ~GameMechs();
-        
         bool getExitFlagStatus();
         void setExitTrue();
 

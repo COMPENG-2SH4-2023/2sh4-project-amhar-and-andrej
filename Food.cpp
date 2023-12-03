@@ -25,14 +25,14 @@ void Food::generateFood(objPosArrayList* coord)
         foodBin->removeHead(); //removing all the food from the bin first
         size--;
     }
-    while(counter < 3) //generating 3 usual foods
+    while(counter < 3) //generating 3 regular foods
     {
-        x = rand() % (30-2)+1;
-        y = rand() % (15-2)+1;
+        x = 1 + rand() % 28;
+        y = 1 + rand() % 13;
         tempfood.setObjPos(x,y,'*');
         bool Flag = true;
 
-        for(int s=0; s<coord->getSize(); s++) //check if the food coordinate overlaps with the snake body
+        for(int s=0; s < coord->getSize(); s++) //check if the food coordinates overlap with the snake's body
         {
             coord->getElement(tempplayer,s);
             if(tempplayer.isPosEqual(&tempfood))
@@ -53,11 +53,11 @@ void Food::generateFood(objPosArrayList* coord)
 
     }
 
-    while(counter < 5) //generate two special food if the total number of food is 4 or less
+    while(counter < 5) //generates two special food if the total number of food is 4 or less
     {
         bool Flag = 1;
-        x = rand() % (30-2)+1;
-        y = rand() % (15-2)+1;
+        x = 1 + rand() % 28;
+        y = 1 + rand() % 13;
         tempfood.setObjPos(x,y,'0');
 
         for(int s=0; s<coord->getSize(); s++) //if the food coordinate doesn't overlap snake body

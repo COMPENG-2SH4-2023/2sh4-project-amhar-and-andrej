@@ -27,7 +27,7 @@ GameMechs::GameMechs(int boardX, int boardY)
 
 GameMechs::~GameMechs()
 {
-    
+    //Destructor is not needed
 }
 
 
@@ -60,7 +60,7 @@ void GameMechs::setLoseFlag()
 
 char GameMechs::getInput()
 {
-    if(MacUILib_hasChar()) //get input when there is a char pressed
+    if(MacUILib_hasChar()) //get input when there is a key pressed
     {
         input = MacUILib_getChar();
     }

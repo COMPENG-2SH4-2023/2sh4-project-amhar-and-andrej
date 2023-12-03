@@ -8,8 +8,8 @@ Player::Player(GameMechs* thisGMRef,Food* thisfood)
 
     // more actions to be included
     objPos tempPos;
-    tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,mainGameMechsRef->getBoardSizeY()/2,'@'); //starting position in the middle
-
+    tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,mainGameMechsRef->getBoardSizeY()/2,'@'); // Setting the start position to be in the middle 
+                                                                                                    // if the board.
     //setting the initial player position
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(tempPos);
@@ -65,7 +65,7 @@ void Player::updatePlayerDir()
                     myDir = RIGHT;
                 break;
 
-            case 27: //Press escape to stop the game
+            case 27: //Press 'ESC' to stop the game
                 mainGameMechsRef->setExitTrue();
                 break;
 
@@ -103,7 +103,8 @@ void Player::movePlayer()
         default:
             break;
     }
-
+    
+    // Vertical Wraparound
     if (currentHead.y == 0) // Wrap to the bottom
     {
         currentHead.y = mainGameMechsRef->getBoardSizeY() - 2; 
@@ -113,6 +114,7 @@ void Player::movePlayer()
         currentHead.y = 1; 
     }
 
+    // Horizontal Wraparound
     if (currentHead.x == 0) // Wrap to the right
     {
         currentHead.x = mainGameMechsRef->getBoardSizeX() - 2; 

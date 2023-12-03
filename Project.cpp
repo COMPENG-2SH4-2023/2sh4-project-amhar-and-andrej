@@ -50,7 +50,7 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    //initalzied variables
+    //initializing on the heap
     myGM = new GameMechs(30,15);
     myfood = new Food();
     myPlayer = new Player(myGM,myfood);
@@ -92,7 +92,8 @@ void RunLogic(void)
     else if(myPlayer->checkFoodConsumption()==2) //if special food is eaten
     {
         myfood->generateFood(tempPlayer); //generates new food
-        for(int i=0;i<10;i++) myGM->incrementScore(); //increments the score by 10 points since it's a special food
+        for(int i=0;i<10;i++) 
+            myGM->incrementScore(); //increments the score by 10 points since it's a special food
     }
     if(myPlayer->checkSelfCollision()) //checking for self collision
     {
@@ -162,7 +163,7 @@ void DrawScreen(void)
     
     if(myPlayer->checkSelfCollision())
     {
-        MacUILib_printf("Oopsie! You self collided :| \n"); //if self collided, the message is displayed for 2 seconds before showing final score 
+        MacUILib_printf("Oopsie! You self collided :( \n"); //if self collided, the message is displayed for 2 seconds before showing final score 
         LoopDelay2();
         LoopDelay2();
     }
