@@ -1,24 +1,25 @@
 #ifndef FOOD_H
 #define FOOD_H
 
-#include <cstdlib>
-#include <time.h>
-
 #include "objPos.h"
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include "objPosArrayList.h"
 
-using namespace std;
 
 class Food
 {
     private:
-        objPos foodPos;
+        objPosArrayList* foodbucket;
 
     public:
-        Food();
+        //Constructor and Destructor
+        Food(); 
         ~Food();
-        void generateFood(objPos blockOff);
-        void getFoodPos(objPos &returnPos);
+
+        void generateFood(objPosArrayList* blockOff); 
+        objPosArrayList* getFoodPos(); 
 };
 
 #endif
