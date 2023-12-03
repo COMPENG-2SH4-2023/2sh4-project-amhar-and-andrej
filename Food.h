@@ -11,14 +11,12 @@
 class Food
 {
     private:
-        objPosArrayList* foodbucket;
+        objPosArrayList* foodBin;
 
     public:
-        //Constructor and Destructor
-        Food(); 
-        ~Food();
-
-        void generateFood(objPosArrayList* blockOff); 
+        Food();   //Constructor
+        ~Food();  //Desstructor
+        void generateFood(objPosArrayList* coord); 
         objPosArrayList* getFoodPos(); 
 };
 

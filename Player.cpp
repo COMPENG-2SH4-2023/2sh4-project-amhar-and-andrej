@@ -8,13 +8,13 @@ Player::Player(GameMechs* thisGMRef,Food* thisfood)
 
     // more actions to be included
     objPos tempPos;
-    tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,mainGameMechsRef->getBoardSizeY()/2,'@');
+    tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,mainGameMechsRef->getBoardSizeY()/2,'@'); //starting position in the middle
 
-    //Set the inital player position 
+    //setting the initial player position
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(tempPos);
 
-    //getting food information
+    //getting the food information
     foodinfo = thisfood;
     
 
@@ -37,7 +37,7 @@ void Player::updatePlayerDir()
 {
     // PPA3 input processing logic  
 
-    char input = mainGameMechsRef->getInput(); //getting the current input
+    char input = mainGameMechsRef->getInput();  //getting the current input
 
     switch(input)
         {           
@@ -160,20 +160,16 @@ int Player::checkFoodConsumption()
         }
     }
     
+
+
     return cond;
 }
 
-void Player::increasePlayerLength()
-{
-    objPos currentHead;
-
-    playerPosList->getHeadElement(currentHead);
-    playerPosList->insertHead(currentHead); //increasing the length by inserting head
-}
 
 bool Player::checkSelfCollision()
 {
     int s;
+
     objPos currentHead,bodypart;
     playerPosList->getHeadElement(currentHead);
 
@@ -198,4 +194,12 @@ bool Player::checkSelfCollision()
     }
 
     return false;
+}
+
+void Player::increasePlayerLength()
+{
+    objPos currentHead;
+
+    playerPosList->getHeadElement(currentHead);
+    playerPosList->insertHead(currentHead); //increasing the length by inserting head
 }

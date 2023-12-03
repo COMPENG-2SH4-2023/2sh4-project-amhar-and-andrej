@@ -9,6 +9,7 @@
 using namespace std;
 
 #define DELAY_CONST 100000
+#define DELAY_CONST_2 999999
 
 
 //global variables
@@ -76,29 +77,24 @@ void RunLogic(void)
     myPlayer->movePlayer();  
     myGM->clearInput();
 
-    //getting the player and food position
+    //getting the player pos
     objPosArrayList* tempPlayer = myPlayer->getPlayerPos();
     objPos temphead;
     tempPlayer->getHeadElement(temphead);
 
-    //if the usual good is eaten
+    //if the usual food is eaten
     if(myPlayer->checkFoodConsumption()==1)
     {
-        //increases score by 1 and lenghtens the snake by 1
-        myPlayer->increasePlayerLength();
-        myfood->generateFood(tempPlayer);
-        myGM->incrementScore();
+        myPlayer->increasePlayerLength(); //increases snake length by 1
+        myfood->generateFood(tempPlayer); //generates new food 
+        myGM->incrementScore(); //increments the score by 1 point
     }
-
     else if(myPlayer->checkFoodConsumption()==2) //if special food is eaten
     {
-        //increases score by 10 points but doesn't lengthen the snake
-        myfood->generateFood(tempPlayer);
-        for(int i=0;i<10;i++) myGM->incrementScore();
+        myfood->generateFood(tempPlayer); //generates new food
+        for(int i=0;i<10;i++) myGM->incrementScore(); //increments the score by 10 points since it's a special food
     }
-
-    //check if self collision happens
-    if(myPlayer->checkSelfCollision())
+    if(myPlayer->checkSelfCollision()) //checking for self collision
     {
         myGM->setLoseFlag();
     }
@@ -112,7 +108,7 @@ void DrawScreen(void)
     //local variables
     objPos bodypart,tempfoodpos;
     objPosArrayList* tempPlayer = myPlayer->getPlayerPos();
-    objPosArrayList* tempfoodbucket = myfood->getFoodPos();
+    objPosArrayList* tempFoodBin = myfood->getFoodPos();
 
     //getting the information from the head element
     objPos currentHead;
@@ -120,58 +116,56 @@ void DrawScreen(void)
     
     for(int i = 0;i < myGM->getBoardSizeY();i++)
     {
-        for(int j = 0;j< myGM->getBoardSizeX() ;j++)
+        for(int j = 0;j< myGM->getBoardSizeX() ;j++) //iterating through all the xy coordinates
         {
-
-            for(int k=0; k<tempPlayer->getSize();k++) //getting the body coordinate
+            for(int k=0; k<tempPlayer->getSize();k++)
             {
                 tempPlayer->getElement(bodypart,k);
-                
-                if(bodypart.x == j&&bodypart.y==i)
+                if(bodypart.x == j && bodypart.y==i) //it will skip if the snake is in the xy coordinate
                 {
                     break;
                 }
             }
-
-            for(int k=0; k<tempfoodbucket->getSize();k++) //getting the food coordinate
+            for(int k=0; k<tempFoodBin->getSize();k++)
             {
-                tempfoodbucket->getElement(tempfoodpos,k);
+                tempFoodBin->getElement(tempfoodpos,k);
                 
-                if(tempfoodpos.x == j&&tempfoodpos.y==i)
+                if(tempfoodpos.x == j && tempfoodpos.y==i) //it will skip if the food is in the xy coordinate
                 {
                     break;
                 }
             }
-
             if(j == bodypart.x && i == bodypart.y)
             {
-                MacUILib_printf("%c",bodypart.symbol);
+                MacUILib_printf("%c",bodypart.symbol); //drawing snake body
             }
 
             else if( j == tempfoodpos.x && i == tempfoodpos.y)
             {
-                MacUILib_printf("%c",tempfoodpos.symbol);
+                MacUILib_printf("%c",tempfoodpos.symbol); //drawing food
             }
 
             else if( i == 0 || i == myGM->getBoardSizeY() - 1 || j == 0 || j == myGM->getBoardSizeX() - 1)
             {
-                MacUILib_printf("#");
+                MacUILib_printf("#"); //drawing the outline
             }
             else
             {
-                MacUILib_printf(" ");
+                MacUILib_printf(" "); //drawing empty spaces
             }
         }
         MacUILib_printf("\n");
     } 
+
+    //displaying score and head coordinate
     MacUILib_printf("Current head pos: <%d,%d>\nCurrent Score: %d\n",currentHead.x,currentHead.y,myGM->getScore());
     
     if(myPlayer->checkSelfCollision())
     {
-        MacUILib_printf("Self Collided!!!\n");
+        MacUILib_printf("Oopsie! You self collided :| \n"); //if self collided, the message is displayed for 2 seconds before showing final score 
+        LoopDelay2();
         LoopDelay2();
     }
-
 }
 
 void LoopDelay(void)
@@ -181,7 +175,7 @@ void LoopDelay(void)
 
 void LoopDelay2(void)
 {
-    MacUILib_Delay(999999); // 1 second delay
+    MacUILib_Delay(DELAY_CONST_2); // 1 second delay
 }
 
 
@@ -191,7 +185,7 @@ void CleanUp(void)
 
     if(myGM ->getLoseFlagStatus())
     {
-        MacUILib_printf("Final score: %d",myGM->getScore());
+        MacUILib_printf("Final score: %d",myGM->getScore()); //displaying final score after losing 
         MacUILib_uninit();
     }
 

@@ -33,8 +33,6 @@ class Player
         objPosArrayList *playerPosList;   // Upgraded in iteration 3     
         enum Dir myDir;
 
-
-
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;
 

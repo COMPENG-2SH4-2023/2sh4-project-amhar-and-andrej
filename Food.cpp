@@ -3,102 +3,85 @@
 
 Food::Food()
 {
-    foodbucket = new objPosArrayList();
+    foodBin = new objPosArrayList();
 }
 
 Food::~Food()
 {
-    delete foodbucket;
+    delete foodBin;
 }
 
-
-void Food::generateFood(objPosArrayList* blockOff)
+void Food::generateFood(objPosArrayList* coord)
 {
-    int x,y,k,size;
-    int count = 0;
-    int board[30][15] = {0}; //generate a vector set to check if the coordinates have been taken
-    bool not_overlap = false;
+    int x,y,size,s;
+    int counter = 0;
     objPos tempplayer, tempfood;
+    int board[30][15] = {0};  //used to check if coordinates for food generation overlap with snake
+    bool not_overlap = false; //declaring a boolean that is true when food generation coordinate doesn't overlap with snake
+    size = foodBin->getSize(); //getting the size of the bin
 
-    size = foodbucket->getSize(); //get the size list
-
-    while(size>0) // clear all the food in bucket
+    while(size>0)
     {
-        foodbucket->removeHead();
+        foodBin->removeHead(); //removing all the food from the bin first
         size--;
     }
-
-    while(count < 3) //generate three common food
+    while(counter < 3) //generating 3 usual foods
     {
-
-        bool Flag = true;
         x = rand() % (30-2)+1;
         y = rand() % (15-2)+1;
-
         tempfood.setObjPos(x,y,'*');
+        bool Flag = true;
 
-        
-
-        for(int k=0; k<blockOff->getSize();k++) //check if the food coordinate overlaps with the snake
+        for(int s=0; s<coord->getSize(); s++) //check if the food coordinate overlaps with the snake body
         {
-            blockOff->getElement(tempplayer,k);
+            coord->getElement(tempplayer,s);
             if(tempplayer.isPosEqual(&tempfood))
             {
-                Flag =false;
+                Flag = false; //flag stays false since food coord and snake body overlap
                 break;
             }
         }   
-
-        
         if(Flag)
         {
-            if(board[tempfood.x][tempfood.y] == 0 ) //if the coordnate hasn't been occupied
+            if(board[tempfood.x][tempfood.y] == 0 ) //if the food coord and snake body do not overlap
             {
-                //add the coordinate and mark the corresponding vector
-                foodbucket->insertTail(tempfood); 
+                foodBin->insertTail(tempfood); //adding the food and marking the vector
                 board[tempfood.x][tempfood.y]++; 
-                count++;
+                counter++; //incrementing food counter
             }
         }
 
     }
 
-    while(count < 5) //generate two special food
+    while(counter < 5) //generate two special food if the total number of food is 4 or less
     {
-
         bool Flag = 1;
         x = rand() % (30-2)+1;
         y = rand() % (15-2)+1;
-
         tempfood.setObjPos(x,y,'0');
 
-        for(int k=0; k<blockOff->getSize();k++) //if the coordnate hasn't been occupied
+        for(int s=0; s<coord->getSize(); s++) //if the food coordinate doesn't overlap snake body
         {
-            blockOff->getElement(tempplayer,k); 
+            coord->getElement(tempplayer,s); 
             if(tempplayer.isPosEqual(&tempfood))
             {
-                Flag =0;
+                Flag = 0;
                 break;
             }
         }   
-
-        
         if(Flag)
         {
             if(board[tempfood.x][tempfood.y] == 0 )
             {
-                //add the coordinate and mark the corresponding vector
-                foodbucket->insertTail(tempfood);
+                foodBin->insertTail(tempfood); //add the food and mark the vector again 
                 board[tempfood.x][tempfood.y]++;
-                count++;
+                counter++;
             }
         }
-
     }
-    
 }
 
 objPosArrayList* Food::getFoodPos()
 {
-    return foodbucket;
+    return foodBin;
 }
